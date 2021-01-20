@@ -1,7 +1,7 @@
-import "./utils/modules-alias";
-import { Server } from "@overnightjs/core";
-import express, { Application } from "express";
-import { ForecastController } from "./controllers/forecastController";
+import './utils/modules-alias';
+import { Server } from '@overnightjs/core';
+import express, { Application } from 'express';
+import { ForecastController } from './controllers/forecastController';
 
 export class SetupServer extends Server {
   //definindo a porta direto no construtor, dessa forma terá uma instância this.port disponível por toda a classe para ser acessada
