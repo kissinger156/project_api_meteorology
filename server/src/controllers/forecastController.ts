@@ -1,11 +1,11 @@
-//o describe define um bloco de códigos, dentro dele pode ter diversos testes
-describe("Beach forecast functional tests", () => {
-  //cada testes é definido pelo it()
-  it("should return a forecast with just a few times", async () => {
-    //no caso desse teste, nós vamos usar o supertest para buscar um retorno em uma rota e vamos comparar os return dessa rota, como baixo podemos ver, pegar o body e o status de uma requisição get e depois comparamos com o toBe, ou seja, esperamos que o status seja (200) e o corpo da req seja aquel.
-    const { body, status } = await global.testRequest.get("/forecast");
-    expect(status).toBe(200);
-    expect(body).toEqual([
+import { Request, Response } from "express";
+import { Controller, Get } from "@overnightjs/core";
+
+@Controller("forecast")
+export class ForecastController {
+  @Get("")
+  public getForecastForLoggedUser(_: Request, res: Response): void {
+    res.send([
       {
         time: "2020-04-26T00:00:00+00:00",
         forecast: [
@@ -45,5 +45,5 @@ describe("Beach forecast functional tests", () => {
         ],
       },
     ]);
-  });
-});
+  }
+}
