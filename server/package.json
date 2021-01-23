@@ -22,7 +22,9 @@
   "dependencies": {
     "@overnightjs/core": "^1.7.5",
     "@types/axios": "^0.14.0",
+    "@types/config": "^0.0.38",
     "axios": "^0.21.1",
+    "config": "^3.3.3",
     "express": "^4.17.1",
     "module-alias": "^2.2.2"
   },
