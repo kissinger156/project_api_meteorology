@@ -3,6 +3,7 @@ import { Server } from '@overnightjs/core';
 import express, { Application } from 'express';
 import { ForecastController } from './controllers/forecastController';
 import * as database from './database';
+import { BeachesController } from './controllers/beaches';
 
 export class SetupServer extends Server {
   //definindo a porta direto no construtor, dessa forma terá uma instância this.port disponível por toda a classe para ser acessada
@@ -23,12 +24,13 @@ export class SetupServer extends Server {
 
   private setupControllers(): void {
     const forecastController = new ForecastController();
-    this.addControllers([forecastController]);
+    const beachesController = new BeachesController();
+    this.addControllers([forecastController, beachesController]);
   }
 
   public async close(): Promise<void> {
     await database.close();
-  };
+  }
 
   private async databaseSetup(): Promise<void> {
     await database.connect();
