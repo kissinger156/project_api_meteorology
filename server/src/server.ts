@@ -7,7 +7,7 @@ import { BeachesController } from './controllers/beaches';
 
 export class SetupServer extends Server {
   //definindo a porta direto no construtor, dessa forma terá uma instância this.port disponível por toda a classe para ser acessada
-  constructor(private port = 3333) {
+  constructor(private port = 3000) {
     super();
   }
 
@@ -15,6 +15,12 @@ export class SetupServer extends Server {
     this.setupExpress();
     this.setupControllers();
     await this.databaseSetup();
+  }
+
+  public start(): void {
+    this.app.listen(this.port, () => {
+      console.log('Server listening on port:' + this.port);
+    });
   }
 
   //fazendo a configuração do express, esse comando basicamente é a mesma coisa de usar por exemplo, server.uso(express.json())
