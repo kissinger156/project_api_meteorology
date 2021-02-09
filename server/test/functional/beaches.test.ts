@@ -34,6 +34,7 @@ describe('Beaches functional tests', () => {
 
       expect(response.status).toBe(422);
       expect(response.body).toEqual({
+        code: 422,
         error:
           'Beach validation failed: lat: Cast to Number failed for value "invalid_string" at path "lat"',
       });
@@ -54,7 +55,10 @@ describe('Beaches functional tests', () => {
       const response = await global.testRequest.post('/beaches').send(newBeach);
 
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ error: 'Internal Server Error' });
+      expect(response.body).toEqual({
+        code: 500,
+        error: 'Internal Server Error',
+      });
     });
   });
 });

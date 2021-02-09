@@ -4,6 +4,7 @@ import express, { Application } from 'express';
 import { ForecastController } from './controllers/forecastController';
 import * as database from './database';
 import { BeachesController } from './controllers/beaches';
+import { UserController } from './controllers/user';
 
 export class SetupServer extends Server {
   //definindo a porta direto no construtor, dessa forma terá uma instância this.port disponível por toda a classe para ser acessada
@@ -31,7 +32,12 @@ export class SetupServer extends Server {
   private setupControllers(): void {
     const forecastController = new ForecastController();
     const beachesController = new BeachesController();
-    this.addControllers([forecastController, beachesController]);
+    const usersController = new UserController();
+    this.addControllers([
+      forecastController,
+      beachesController,
+      usersController,
+    ]);
   }
 
   public async close(): Promise<void> {

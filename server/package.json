@@ -34,12 +34,13 @@
   },
   "scripts": {
     "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "start": "yarn build && node dist/src/index.js",
+    "test": "yarn test:unit && yarn test:functional ",
     "lint": "eslint ./src ./test --ext .ts",
     "lint-fix": "eslint ./src ./test --ext .ts --fix",
     "style:check": "prettier --check src/**/*.ts test/**/*.ts",
     "style:fix": "prettier --write src/**/*.ts test/**/*.ts",
-    "dev": "ts-node-dev src/index.ts",
     "test:functional": "jest --projects ./test --runInBand",
     "test:unit": "jest"
   }
