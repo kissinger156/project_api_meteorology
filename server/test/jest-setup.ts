@@ -12,6 +12,5 @@ beforeAll(async () => {
   global.testRequest = supertest(server.getApp());
 });
 
-
 //após a execução dos testes, esse comando irá encerrar o banco de dados e também a aplicação
-afterAll(async() => await server.close())
+afterAll(async () => await server.close());

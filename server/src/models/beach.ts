@@ -35,6 +35,6 @@ const schema = new mongoose.Schema(
 );
 
 //interface irá permitir que nós tenhamos acesso as propriedades da interface Beach e além disso termos acesso as propriedades do mongoose, como find(), save(), etc, que o Document irá permitir.
-type BeachModel = Exclude<Beach, '_id'> & Document
+type BeachModel = Exclude<Beach, '_id'> & Document;
 
 export const Beach: Model<BeachModel> = mongoose.model('Beach', schema);

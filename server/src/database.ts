@@ -10,5 +10,5 @@ export const connect = async (): Promise<Mongoose> =>
     useUnifiedTopology: true,
   });
 
-  //const criada para fechar a conexão com o banco de dados quando a aplicação for encerrada, boas práticas
+//const criada para fechar a conexão com o banco de dados quando a aplicação for encerrada, boas práticas
 export const close = (): Promise<void> => mongoose.connection.close();

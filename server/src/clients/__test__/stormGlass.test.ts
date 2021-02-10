@@ -80,7 +80,7 @@ describe('StormGlass client', () => {
     });
 
     MockedRequestClass.isRequestError.mockReturnValue(true);
-    
+
     const stormGlass = new StormGlass(mockedRequest);
 
     await expect(stormGlass.fetchPoints(lat, lng)).rejects.toThrow(
