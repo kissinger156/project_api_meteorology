@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
-import { Controller, Get } from '@overnightjs/core';
+import { ClassMiddleware, Controller, Get } from '@overnightjs/core';
 import { Forecast } from '@src/services/forecast';
 import { Beach } from '@src/models/beach';
+import { authMiddleware } from '@src/middlewares/auth';
 
 const forecast = new Forecast();
 @Controller('forecast')
+@ClassMiddleware(authMiddleware)
 export class ForecastController {
   @Get('')
   public async getForecastForLoggedUser(
-    _: Request,
+    req: Request,
     res: Response
   ): Promise<void> {
     try {
-      const beach = await Beach.find({});
+      const beach = await Beach.find({ user: req.decoded?.id });
       const forecastData = await forecast.processForecastForBeaches(beach);
 
       res.status(200).send(forecastData);

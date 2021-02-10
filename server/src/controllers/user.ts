@@ -33,6 +33,6 @@ export class UserController extends BaseController {
 
     //passando o user como to json, para meio que forçar ele a ser passado como um objeto
     const token = AuthService.generateToken(user.toJSON());
-    return res.status(200).send({ token: token });
+    return res.status(200).send({ user, token: token });
   }
 }
