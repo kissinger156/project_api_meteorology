@@ -1,0 +1,57 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+#Nome da ação(pipeline)
+name: Complete workflow
+
+#on -> quando irá rodar, no nosso caso, toda fez que for dado push
+on: ['push']
+
+#ações que ele irá fazer
+jobs:
+
+  build:
+
+    #server ubuntu que irá ser feito a produção do nosso projeto, no github roda ubuntu
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+        mongodb-version: [4.2]
+
+    #passo a passo de como será executado
+    steps:
+    - uses: actions/checkout@v2
+    - run: git fetch --prune --unshallow
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.1.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+
+    - name: Run all tests
+      run: yarn test
+
+    #sobrescrevendo o bash padrão do github workflow pelo bash
+    - shell: bash
+      #verificando de o heads é igual a master, ou seja, apenas quando a branch for a master
+      if: github.ref == 'refs/heads/master'
+      name: Create SSH deployment key
+      env:
+        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: ./scripts/deploy.sh
+
+    - name: Deployment
+      if: github.ref == 'refs/heads/master'
+      run: git remote add umbler ssh://git@kamino.deploy.umbler.com:9922/jmn9lvnk/forecast-surf-com.git && git push umbler master
+      env:
+        CI: true
