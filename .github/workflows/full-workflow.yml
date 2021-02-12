@@ -46,7 +46,6 @@ jobs:
       #verificando de o heads é igual a master, ou seja, apenas quando a branch for a master
       if: github.ref == 'refs/heads/master'
       name: Create SSH deployment key
-      
       env:
         SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: ./scripts/deploy.sh
