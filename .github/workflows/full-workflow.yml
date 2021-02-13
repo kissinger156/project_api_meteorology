@@ -10,7 +10,7 @@ on: ['push']
 #ações que ele irá fazer
 jobs:
 
-  build:
+  build: 
 
     #server ubuntu que irá ser feito a produção do nosso projeto, no github roda ubuntu
     runs-on: ubuntu-latest
